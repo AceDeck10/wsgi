@@ -74,8 +74,9 @@ def app(environ, start_response):
     ]
 
     start_response(status, response_headers)
-    return[response_body]
+    return[response_body.encode()]
 
-httpd = make_server('localhost', 8051, app)
+with make_server('localhost', 8051, app) as httpd:
+    print('serving on 127.0.0.1:8051')
 
-httpd.serve_forever()
+    httpd.serve_forever()
